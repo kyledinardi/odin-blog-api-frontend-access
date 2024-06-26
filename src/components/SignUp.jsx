@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../style/Form.module.css'
+import styles from '../style/Form.module.css';
 
 function SignUp() {
   const [errors, setErrors] = useState(null);
@@ -16,12 +16,15 @@ function SignUp() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/auth/sign-up', {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        'https://backend-green-butterfly-9917.fly.dev/auth/sign-up',
+        {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        },
+      );
 
       const responseJson = await response.json();
       e.target.reset();

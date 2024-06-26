@@ -6,7 +6,9 @@ function Home() {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/posts', { mode: 'cors' })
+    fetch('https://backend-green-butterfly-9917.fly.dev/posts', {
+      mode: 'cors',
+    })
       .then((response) => response.json())
       .then((response) => {
         const publishedPosts = response.filter((post) => post.isPublished);

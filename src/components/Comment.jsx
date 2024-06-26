@@ -31,7 +31,7 @@ function Comment({
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments/${commentId}`,
+        `https://backend-green-butterfly-9917.fly.dev/posts/${postId}/comments/${commentId}`,
         {
           method: 'PUT',
           mode: 'cors',
@@ -55,7 +55,7 @@ function Comment({
   async function deleteComment() {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments/${commentId}`,
+        `https://backend-green-butterfly-9917.fly.dev/posts/${postId}/comments/${commentId}`,
         {
           method: 'DELETE',
           mode: 'cors',
@@ -74,17 +74,19 @@ function Comment({
   }
 
   function renderButtons() {
-    if (commenter.email === user.email || user.isAdmin) {
-      return (
-        <div>
-          {commenter.email === user.email && (
-            <button onClick={() => setIsEdit(!isEdit)}>
-              {isEdit ? 'Cancel' : 'Edit'}
-            </button>
-          )}
-          <button onClick={() => deleteComment()}>Delete</button>
-        </div>
-      );
+    if (commenter && user) {
+      if (commenter.email === user.email || user.isAdmin) {
+        return (
+          <div>
+            {commenter.email === user.email && (
+              <button onClick={() => setIsEdit(!isEdit)}>
+                {isEdit ? 'Cancel' : 'Edit'}
+              </button>
+            )}
+            <button onClick={() => deleteComment()}>Delete</button>
+          </div>
+        );
+      }
     }
 
     return null;

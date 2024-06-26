@@ -11,7 +11,9 @@ function PostPage() {
   const { postId } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/${postId}`, { mode: 'cors' })
+    fetch(`https://backend-green-butterfly-9917.fly.dev/posts/${postId}`, {
+      mode: 'cors',
+    })
       .then((response) => response.json())
       .then((response) => {
         setPost(response.post);
@@ -22,7 +24,7 @@ function PostPage() {
       });
 
     if (localStorage.getItem('token')) {
-      fetch('http://localhost:3000/auth/user', {
+      fetch('https://backend-green-butterfly-9917.fly.dev/auth/user', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -46,7 +48,7 @@ function PostPage() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments`,
+        `https://backend-green-butterfly-9917.fly.dev/posts/${postId}/comments`,
         {
           method: 'POST',
           mode: 'cors',

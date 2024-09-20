@@ -16,34 +16,27 @@ function Login() {
   async function submit(e) {
     e.preventDefault();
 
-    const data = {
-      email: e.target[0].value,
-      password: e.target[1].value,
-    };
+    const response = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
 
-    try {
-      const response = await fetch(
-        'https://backend-green-butterfly-9917.fly.dev/auth/login',
-        {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        },
-      );
+      body: JSON.stringify({
+        email: e.target[0].value,
+        password: e.target[1].value,
+      }),
+    });
 
-      const responseJson = await response.json();
-      localStorage.setItem('token', responseJson.token);
-      e.target.reset();
+    const responseJson = await response.json();
+    localStorage.setItem('token', responseJson.token);
+    e.target.reset();
 
-      if (responseJson.error) {
-        setError(responseJson.error);
-      } else {
-        setIsAuth(true);
-        navigate('/');
-      }
-    } catch (err) {
-      console.error(err);
+    if (responseJson.error) {
+      setError(responseJson.error);
+    } else {
+      setError(null);
+      setIsAuth(true);
+      navigate('/');
     }
   }
 
